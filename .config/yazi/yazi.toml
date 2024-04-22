@@ -1,0 +1,11 @@
+[manager]
+linemode = "size"
+
+[opener]
+edit = [
+    { run = 'nvim "$@"', block = true },
+]
+open = [
+    { run = 'xdg-open "$@"', desc = "Open" },
+]
+

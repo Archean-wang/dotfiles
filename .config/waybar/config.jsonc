@@ -14,19 +14,38 @@
         "hyprland/window"
     ],
     "modules-right": [
+        "group/hardware",
+        "idle_inhibitor",
         "pulseaudio",
         "network",
-        "cpu",
-        "memory",
+        // "cpu",
+        // "memory",
         // "temperature",
-        "backlight",
-        "battery",
+        // "backlight",
+        // "battery",
+        "group/power",
         "clock"
     ],
     // Modules configuration
     "custom/launcher": {
         "format": "  ",
         "on-click": "rofi -show drun"
+    },
+    "custom/analysis": {
+        "format": "",
+        "tooltip-format": "状态"
+    },
+    "custom/poweroff": {
+        "format": "  关机",
+        "on-click": "poweroff"
+    },
+    "custom/reboot": {
+        "format": "  重启",
+        "on-click": "reboot"
+    },
+    "custom/logout": {
+        "format": "  注销",
+        "on-click": "hyprctl dispatch exit"
     },
     "hyprland/workspaces": {
         "format": "{icon} || {windows}",
@@ -75,11 +94,11 @@
     },
     "cpu": {
         "interval": 1,
-        "format": "{usage}% ",
+        "format": " {usage}%",
         "tooltip": false
     },
     "memory": {
-        "format": "{}% "
+        "format": " {}%"
     },
     "temperature": {
         // "thermal-zone": 2,
@@ -95,7 +114,7 @@
     },
     "backlight": {
         "scroll-step": 5,
-        "format": "{percent}% {icon}",
+        "format": "{icon} {percent}%",
         "format-icons": [
             "",
             "",
@@ -115,11 +134,11 @@
             "critical": 15
         },
         "interval": 5,
-        "format": "{capacity}% {icon}",
-        "format-full": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
+        "format": "{icon} {capacity}%",
+        "format-full": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt": "{icon} {time}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
         "format-icons": [
@@ -132,20 +151,20 @@
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{ifname} via {gwaddr} ",
+        "format-wifi": " {signalStrength}%",
+        "format-ethernet": " wire",
+        "tooltip-format": "{essid}",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "{icon} {volume}% {format_source}",
         "format-bluetooth-muted": " {icon} {format_source}",
         "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
+        "format-source": " {volume}%",
         "format-source-muted": "",
         "format-icons": {
             "headphone": "",
@@ -173,5 +192,29 @@
         "escape": true,
         "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
         // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+    },
+    "group/hardware": {
+        "orientation": "orthogonal",
+        "drawer": {
+            "transition-left-to-right": false
+        },
+        "modules": [
+            "custom/analysis",
+            "cpu",
+            "memory",
+            "backlight"
+        ]
+    },
+    "group/power": {
+        "orientation": "horizontal",
+        "drawer": {
+            "transition-left-to-right": false
+        },
+        "modules": [
+            "battery",
+            "custom/poweroff",
+            "custom/reboot",
+            "custom/logout"
+        ]
     }
 }

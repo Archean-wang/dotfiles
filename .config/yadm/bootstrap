@@ -1,0 +1,10 @@
+#! bin/bash
+packages=("fastfetch" "zsh" "zsh-completions" "nvim" "wget" "rofi" "i3-wm" "flameshot" "dunst" "polybar" "fcitx5" "kitty" "yazi")
+
+for package in "${packages[@]}"; do
+    if pacman -Qs "package" > /dev/null; then
+        echo "$package Exists."
+    else
+        sudo pacman -S "$package" > /dev/null
+    fi
+done
